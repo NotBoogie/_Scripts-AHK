@@ -1,0 +1,83 @@
+
+;SaiToolkit
+#SingleInstance Force
+CoordMode, Mouse, Screen
+CoordMode, Pixel, Screen
+;Define globals
+global acceptKey := "Enter"
+global forwardLayerKey := "F1"
+global backwardLayerKey := "F3"
+global showAloneLayerKey := "F4"
+global layerPropertiesKey := "F5"
+global exportPngKey := "F7"
+;exportCurrent("test")
+
+exportCurrent(fileName := ""){
+	focusSai()
+	ctrlDown()
+	pressButton(exportPngKey)
+	ctrlUp()
+	Sleep 100
+	if(fileName != "")
+		Send %fileName%
+	pressButton(acceptKey)
+	Sleep 500
+	WinGetTitle, title, Confirm
+	if(title == "Confirm Save As"){
+		pressButton("Tab")
+		Sleep 100
+		pressButton(acceptKey)
+	}
+	Sleep 1000
+}
+
+showAloneLayer(){
+	pressButton(showAloneLayerKey)
+}
+
+getCurrentLayerName(){
+	result := ""
+	focusSai()
+	pressButton(layerPropertiesKey)
+	result := getHighlighted()
+	pressButton("Tab")
+	pressButton("Tab")
+	pressButton(acceptKey)
+	return result
+}
+
+;Uses the clipboard to get whatever's currently highlighted
+getHighlighted(){
+	clipsaved:= clipboard    ; This line is here so the original clipboard contents can be restored when the script is finished.
+ 	clipboard := "" ; This erases the clipboard, so that we can be sure something new is added in the next step.
+	Send, ^c    ; Add the highlighted text to the clipboard
+	Sleep 200    ; Give Windows time to actually populate the clipboard - you may need to experiment with the time here.
+	clipsaved2 := clipboard
+ 	clipboard := clipsaved    ; Sets the clipboard back to whatever was on it before you ran this script.
+	Sleep 200
+	return clipsaved2
+}
+
+focusSai(){
+	WinActivate, PaintTool SAI
+}
+shiftDown(){
+Send, {Shift Down}
+}
+shiftUp(){
+Send, {Shift Up}
+}
+ctrlDown(){
+Send, {Ctrl Down}
+}
+ctrlUp(){
+Send, {Ctrl Up}
+}
+pressButton(butt){
+    Send, {%butt% Down}
+    Sleep 50
+    Send, {%butt% Up}
+}
+goUpLayer(){
+	pressButton(forwardLayerKey)
+}
