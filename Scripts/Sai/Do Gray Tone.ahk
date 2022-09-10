@@ -22,7 +22,7 @@ renameLayer("Tone")
 newLayer()
 renameLayer("Gray")
 fillLayer()
-imageSearchc(fx,fy,0,0,a_screenWidth,a_screenHeight,"./OpacitySlider(gray).png")
+imageSearchc(fx,fy,0,0,a_screenWidth,a_screenHeight,"..\..\Resources\OpacitySlider.png")
 MouseClick, left,  fx+110, fy+20
 newLayer()
 renameLayer("Blush")

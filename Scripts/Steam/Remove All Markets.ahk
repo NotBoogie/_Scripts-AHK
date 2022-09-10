@@ -4,7 +4,7 @@
 
 Loop{
     Loop{
-        onScreen := checkIfImageIsOnScreen(".\steamkeylisting.bmp")
+        onScreen := checkIfImageIsOnScreen("..\..\Resources\SteamKey.bmp")
     if(onScreen == 1)
         break
         Sleep, 500
@@ -12,7 +12,7 @@ Loop{
     justClickLocation(1286, 374)
 
     Loop{
-        onScreen := checkIfImageIsOnScreen(".\steamremovethislisting.bmp")
+        onScreen := checkIfImageIsOnScreen("..\..\Resources\RemoveListing.bmp")
     if(onScreen == 1)
         break
         Sleep, 500
