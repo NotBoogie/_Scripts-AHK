@@ -2,15 +2,24 @@
 Exit
 
 #SingleInstance Force
+
 global numberOfFrames := 4
 global isPlaying := false
+
 keyFrameUp := Numpad4 
 keyFrameDown := Numpad5
 keyFrameShowOnlyOneLater := Numpad6
+
 global FPS = 8
-global FPSsleepTime = 1 / FPS * 1000    ;milliseconds to wait on each frame
+
+;   Milliseconds to wait on each frame
+global FPSsleepTime = 1 / FPS * 1000
+
 global BreakLoop
-;Go up numberOfFrames pressing keyFrameShowOnlyOneLater each time per framerate, then spam down numberOfFrames
+
+;   Go up numberOfFrames pressing keyFrameShowOnlyOneLater 
+;   each time per framerate, then spam down numberOfFrames
+
 GetFrameNumber()
 
 ;pressButton(Numpad4)
@@ -22,88 +31,119 @@ GetFrameNumber()
     
 ;}
 
-DoLoop(numberOfFrames, FPSsleepTime){
-;MsgBox, %numberOfFrames%
-    Loop{
-        if (BreakLoop = 1)
+
+DoLoop( frames , delay ){
+
+    ;MsgBox, %frames%
+    
+    Loop {
+    
+        if(BreakLoop = 1)
             break 
-        Loop, % numberOfFrames - 1
-        {
-        if (BreakLoop = 1)
-            break 
-        moveUpFrame()
-        Sleep FPSsleepTime
+    
+        Loop , % frames - 1 {
+        
+            if(BreakLoop = 1)
+                break 
+            
+            moveUpFrame()
+            
+            Sleep delay
         }
-        if (BreakLoop = 1)
+        
+        if(BreakLoop = 1)
             break 
-        resetToBottom(numberOfFrames - 1)
-        Sleep FPSsleepTime
+        
+        resetToBottom(frames - 1)
+        
+        Sleep delay
     }
 }
+
 return
 
-;Esc::ExitApp  ;Escape key will exit... place this at the bottom of the script
+
+;   Escape key will exit the process
+;Esc::ExitApp
+
+
 moveUpFrame(){
-    Send, {Numpad4 Down}
-    Send, {Numpad4 Up}
-    ShowOnlyCurrentLayer()
-}
-ShowOnlyCurrentLayer(){
-    Send, {Numpad6 Down}
-    Send, {Numpad6 Up}
-}
-resetToBottom(numberOfFrames){
-    Loop, % numberOfFrames{
-    Send, {Numpad5 Down}
-    Sleep 15
-    ;Send, {Numpad5 Up}
-    }
-    Send, {Numpad5 Up}
+    
+    Send , { Numpad4 Down }
+    Send , { Numpad4 Up }
+    
     ShowOnlyCurrentLayer()
 }
 
-pressButton(butt){
-    Send, {%butt% Down}
+ShowOnlyCurrentLayer(){
+    Send , { Numpad6 Down }
+    Send , { Numpad6 Up }
+}
+
+resetToBottom(numberOfFrames){
+    
+    Loop , % numberOfFrames {
+        
+        Send , { Numpad5 Down }
+        
+        Sleep 15
+        
+        ;Send, { Numpad5 Up }
+    }
+    
+    Send , {Numpad5 Up}
+    
+    ShowOnlyCurrentLayer()
+}
+
+pressButton( button ){
+    Send , { %button% Down }
     Sleep 50
-    Send, {%butt% Up}
+    Send , { %button% Up }
 }
 
 traverseUpWithOnionSkin(){
-;Set layer transparency to 30
-;Make new layer
-;Fill new layer with green
-;Make new layer be masked by previous
-;Move up layer selection
+    ;Set layer transparency to 30
+    ;Make new layer
+    ;Fill new layer with green
+    ;Make new layer be masked by previous
+    ;Move up layer selection
 }
 
 shiftDown(){
-Send, {Shift Down}
+    Send , { Shift Down }
 }
+
 shiftUp(){
-Send, {Shift Up}
+    Send , { Shift Up }
 }
-RandSleep(x,y) {
-    Random, rand, %x%, %y%
+
+RandSleep( x , y ){
+    Random , rand , %x% , %y%
     Sleep %rand%
 }
+
 GetFrameNumber(){
-InputBox, numberOfFrames, Number of Frames, Enter number of frames., , 150, 150
+    InputBox , numberOfFrames, Number of Frames, Enter number of frames., , 150, 150
 }
+
 Esc::
-BreakLoop = 1
-isPlaying := !isPlaying
-return
+    BreakLoop = 1
+    isPlaying := !isPlaying
+    return
 
 1::
     GetFrameNumber()
-return
+    return
 
 `::
-if(!isPlaying){
-    BreakLoop := 0
-    DoLoop(numberOfFrames, FPSsleepTime)
-}else{
-    BreakLoop := 1
-}
-isPlaying := !isPlaying
-return
+    if(!isPlaying){
+        BreakLoop := 0
+        DoLoop(numberOfFrames,FPSsleepTime)
+    } else {
+        BreakLoop := 1
+    }
+    
+    isPlaying := !isPlaying
+    
+    return
