@@ -1,48 +1,62 @@
-;Layer renamer
-;Goes up from the currently selected layer and renames all layers to [your input]-#
+
+;
+;   Layer Renamer
+;   
+;   Goes up from the currently selected layer 
+;   and renames all layers to [your input]-#
+;
+
 
 #Include ./SaiToolkit.ahk
 
-topLayerHit := false
-previousLayerName :=""
-thisLayerName :=""
-newLayerName := ""
-counter := 1
+previousLayerName := ""
 baseLayerName := "Frame"
+thisLayerName := ""
+newLayerName := ""
+topLayerHit := false
+counter := 1
 
-InputBox, baseLayerName, Enter Name, Enter layer base name (result will be "Basename-#"):, , 300, 150
+InputBox , baseLayerName , Enter Name , Enter layer base name (result will be "Basename-#"): , , 300 , 150
 
 focusSai()
-While !topLayerHit{
 
-			;Get the layer name
-			pressButton(layerPropertiesKey)
-			thisLayerName := getHighlighted()
+While ! topLayerHit {
 
-			if(thisLayerName = previousLayerName){
-				topLayerHit := true
-				;MsgBox dsfgdfg %topLayerHit%
-			}
-			else
-			{
-				newLayerName := baseLayerName "-" counter
-				;MsgBox %newLayerName%
-				send %newLayerName%
-				pressButton("Enter")
-				goUpLayer()
-				counter := counter+1
-				;MsgBox thisLayerName %thisLayerName% previousLayerName %previousLayerName%
-				previousLayerName := newLayerName
-			}
+    ;   Get the layer name
+    
+    pressButton(layerPropertiesKey)
+    thisLayerName := getHighlighted()
 
-			;Close properties pane
-			;pressButton("Tab")
-			;pressButton("Tab")
-			pressButton(acceptKey)
+    if(thisLayerName = previousLayerName){
+        topLayerHit := true
+        ;MsgBox dsfgdfg %topLayerHit%
+    } else {
+        
+        newLayerName := baseLayerName "-" counter
+        
+        ;MsgBox %newLayerName%
+        
+        send %newLayerName%
+        
+        pressButton("Enter")
+        goUpLayer()
+        
+        counter := counter + 1
+        
+        ;MsgBox thisLayerName %thisLayerName% previousLayerName %previousLayerName%
+        
+        previousLayerName := newLayerName
+    }
 
-;MsgBox topLayerHit %topLayerHit%
+    ;   Close properties pane
+    
+    ;pressButton("Tab")
+    ;pressButton("Tab")
+    pressButton(acceptKey)
 
-sleep, 150
-     }
+    ;MsgBox topLayerHit %topLayerHit%
 
-	 Esc::ExitApp
+    sleep , 150
+}
+
+Esc::ExitApp
