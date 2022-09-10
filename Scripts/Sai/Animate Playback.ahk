@@ -1,4 +1,6 @@
 
+Exit
+
 #SingleInstance Force
 global numberOfFrames := 4
 global isPlaying := false
