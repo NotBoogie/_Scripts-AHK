@@ -8,7 +8,7 @@
 ;   Fill with black
 ;   Change opacity to like 25%
 ;   Add blush layer
-;   Add hilight layer
+;   Add highlight layer
 ;
 
 #Include ..\Libraries\Sai.ahk
