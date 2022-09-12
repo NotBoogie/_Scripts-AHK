@@ -7,7 +7,8 @@
 ;
 
 
-#Include ./SaiToolkit.ahk
+#Include ..\Libraries\Sai.ahk
+
 
 previousLayerName := ""
 baseLayerName := "Frame"
@@ -16,7 +17,11 @@ newLayerName := ""
 topLayerHit := false
 counter := 1
 
-InputBox , baseLayerName , Enter Name , Enter layer base name (result will be "Basename-#"): , , 300 , 150
+InputBox 
+    , baseLayerName 
+    , Enter Name 
+    , Enter layer base name (result will be "Basename-#"): , 
+    , 300 , 150
 
 focusSai()
 

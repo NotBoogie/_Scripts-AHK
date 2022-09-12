@@ -91,7 +91,7 @@ resetToBottom(numberOfFrames){
         ;Send, { Numpad5 Up }
     }
     
-    Send , {Numpad5 Up}
+    Send , { Numpad5 Up }
     
     ShowOnlyCurrentLayer()
 }
@@ -119,12 +119,21 @@ shiftUp(){
 }
 
 RandSleep( x , y ){
-    Random , rand , %x% , %y%
+    
+    Random 
+        , rand 
+        , %x% 
+        , %y%
+        
     Sleep %rand%
 }
 
 GetFrameNumber(){
-    InputBox , numberOfFrames, Number of Frames, Enter number of frames., , 150, 150
+    InputBox 
+        , numberOfFrames
+        , Number of Frames
+        , Enter number of frames. , 
+        , 150, 150
 }
 
 Esc::
@@ -139,11 +148,11 @@ Esc::
 `::
     if(!isPlaying){
         BreakLoop := 0
-        DoLoop(numberOfFrames,FPSsleepTime)
+        DoLoop( numberOfFrames , FPSsleepTime )
     } else {
         BreakLoop := 1
     }
     
-    isPlaying := !isPlaying
+    isPlaying := ! isPlaying
     
     return

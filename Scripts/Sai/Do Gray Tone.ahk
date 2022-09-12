@@ -1,4 +1,5 @@
 
+;
 ;   Pre-select areas to NOT shade
 ;   Invert selection
 ;   Contract
@@ -8,12 +9,13 @@
 ;   Change opacity to like 25%
 ;   Add blush layer
 ;   Add hilight layer
+;
 
-#Include ./SaiToolkit.ahk
-#Include ./Gdip.ahk
-#Include ./Gdip_ImageSearch.ahk
+#Include ..\Libraries\Sai.ahk
+#Include ..\Libraries\ImageSearch.ahk
 
-coordMode , pixel
+coordMode 
+    , pixel
 
 focusSai()
 
@@ -27,13 +29,16 @@ newLayer()
 renameLayer("Gray")
 fillLayer()
 
-imageSearchc(
-    fx , fy , 0 , 0 ,
-    a_screenWidth , a_screenHeight ,
-    "..\..\Resources\OpacitySlider.png"
-)
+options := { image : "../../Resources/OpacitySlider.png"
+           , from  : [ 0 , 0 ]
+           , to    : [ a_screenWidth , a_screenHeight ] }
 
-MouseClick , left ,  fx + 110 , fy + 20
+imageSearchc( fx , fy , options )
+
+MouseClick 
+    , left 
+    ,  fx + 110 
+    , fy + 20
 
 newLayer()
 renameLayer("Blush")

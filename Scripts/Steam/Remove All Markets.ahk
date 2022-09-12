@@ -4,7 +4,8 @@
 ;
 
 
-#Include .\RunescapeToolkit.ahk
+#Include ..\Libraries\Runescape.ahk
+
 
 Loop {
     Loop {
